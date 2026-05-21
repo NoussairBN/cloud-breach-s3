@@ -11,12 +11,13 @@ Ce projet documente le cycle complet **Red Team → Audit IaC → Blue Team** su
 
 ## Architecture du dépôt
 
+```text
 .
 ├── assets/             # Fichiers de configuration déployés sur l'instance EC2
 ├── image_durci/        # Preuves visuelles (PoC + validation du correctif)
 ├── terraform/          # Code IaC durci (Infrastructure as Code)
 └── README.md
-
+```
 > ⚠️ Le fichier `terraform.tfvars` est exclu du dépôt via `.gitignore` (contient des données sensibles locales).
 
 ---
