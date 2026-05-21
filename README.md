@@ -1,7 +1,4 @@
-# 🛡️ PFS — Cloud Breach S3 : Exploitation SSRF & Durcissement IaC
-
-> **Projet de Fin de Semestre — 4ème année ENSA Marrakech**  
-> Parcours : Génie des Systèmes et Technologies de l'Information  
+# 🛡️ PFS — Cloud Breach S3
 > Scénario : `cloud_breach_s3` — CloudGoat by RhinoSecurityLabs
 
 ---
@@ -12,7 +9,8 @@ Ce projet documente le cycle complet **Red Team → Audit IaC → Blue Team** su
 
 ---
 
-## 🏗️ Architecture du dépôt
+## Architecture du dépôt
+
 .
 ├── assets/             # Fichiers de configuration déployés sur l'instance EC2
 ├── image_durci/        # Preuves visuelles (PoC + validation du correctif)
@@ -23,7 +21,7 @@ Ce projet documente le cycle complet **Red Team → Audit IaC → Blue Team** su
 
 ---
 
-## 🔴 Étape 1 — Reconnaissance & État initial
+## Étape 1 — Reconnaissance & État initial
 
 Vérification de l'environnement de travail avec le profil administrateur `pfs-admin` avant tout déploiement. Aucun credentials résiduel d'une session précédente.
 
@@ -31,7 +29,7 @@ Vérification de l'environnement de travail avec le profil administrateur `pfs-a
 
 ---
 
-## 💥 Étape 2 — Exploitation de la vulnérabilité SSRF
+##  Étape 2 — Exploitation de la vulnérabilité SSRF
 
 Le proxy **Nginx** de l'instance EC2 cible (`100.53.65.27`) est mal configuré : il relaie les requêtes HTTP sans filtrer la destination. Cette faille **SSRF (Server-Side Request Forgery)** permet d'interroger le service de métadonnées AWS (**IMDSv1**) à l'adresse locale `169.254.169.254`.
 
@@ -130,7 +128,7 @@ Après `terraform apply`, deux tests prouvent l'efficacité du durcissement :
 
 ---
 
-## 📊 Diagramme de flux — Avant / Après durcissement
+##  Diagramme de flux — Avant / Après durcissement
 ```mermaid
 graph TD
 A[Attaquant Externe] -->|1. SSRF sur Nginx| B(EC2 Reverse Proxy)
@@ -145,8 +143,6 @@ subgraph AWS - Après Durcissement
     B ==>|5. Accès restreint autorisé| E[(Bucket cardholder-data)]
 end
 ```
-
-> Copiez ce bloc sur [mermaid.live](https://mermaid.live) pour générer le schéma.
 
 ---
 
@@ -163,7 +159,7 @@ end
 
 ---
 
-## 📚 Concepts clés abordés
+## Concepts clés abordés
 
 - **SSRF (Server-Side Request Forgery)** : exploitation d'un proxy mal configuré
 - **IMDSv1 vs IMDSv2** : vulnérabilité du service de métadonnées AWS (v1 sans token)
